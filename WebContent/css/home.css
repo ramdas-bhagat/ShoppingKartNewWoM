@@ -1,0 +1,128 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	margin: 0;
+	background: aliceblue;
+}
+.headingContainer {
+	background: cadetblue;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.logoImgDiv {
+	display: flex;
+    float: left;
+}
+
+.logoImg {
+	height: 50px;
+    margin: 5px 15px;
+}
+.listItem {
+	float: left;
+}
+ul {
+	list-style: none;
+	display: flex;
+}
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 5px 16px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+li a:HOVER {
+	background-color: #111;
+}
+
+.userMainDiv {
+	position: fixed;
+    top: 0px;
+    /* width: 16%; */
+    right: 0px;
+    z-index: 10001;
+    display: flex;
+}
+.kartDiv {
+    display: inline-flex;
+    align-items: center;
+    margin: 5px 30px 0px;
+}
+.userInnerDiv {
+	float: right;
+    margin: 10px 30px 0px;
+    display: inline-flex;
+    align-items: center;
+}
+.userImg {
+	height: 40px;
+    border-radius: 40px;
+    margin-right: 15px;
+}
+.userName {
+	text-align: center;
+    color: aliceblue;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+.mainContainer, {
+	width: 100%;
+	margin-top: 10px;
+}
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+.swiper-slide {
+	display: block !important;
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 41px;
+    font-weight: 300;
+}
+.subtitle {
+    font-size: 21px;
+}
+.text {
+    font-size: 14px;
+    max-width: 400px;
+    line-height: 1.3;
+}
+.swiperImg {
+	width: 100%;
+}
+
+.swiper1 {
+	height: 250px; margin-top: 10px;padding: 10px 0px;background: white;
+}
+.swiperImg1 {
+	max-width: 100%;
+    max-height: 100%;
+}
+
+.prodName {
+	font-size: 1.1em; font-weight: 600;margin: 5px 0px;
+}
