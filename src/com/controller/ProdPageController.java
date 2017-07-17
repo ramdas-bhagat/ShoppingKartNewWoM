@@ -30,6 +30,9 @@ public class ProdPageController {
 		mv.addObject("name", mobile1.getModelName());
 		mv.addObject("image", mobile1.getImgPath());
 		mv.addObject("price", mobile1.getPrice());
+		mv.addObject("availability", mobile1.isAvailability());
+		mv.addObject("make", mobile1.getModelMake());
+		mv.addObject("productId", mobile1.getProdId());
 		return mv;
 	}
 }

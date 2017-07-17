@@ -11,14 +11,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.beans.MobileBean;
 
 @Controller
-@RequestMapping(value = "/addProduct")
+@RequestMapping(value = "addProduct")
 public class ProductAddController {
 	
 	@RequestMapping(value = "/mobile.htm", method= RequestMethod.GET)
 	protected ModelAndView addMobile() {
 		
 		MobileBean mobile1 = new MobileBean();
-		mobile1.setProdId(1001);
+		mobile1.setProdId(1000);
 		mobile1.setModelMake("Apple");
 		mobile1.setModelName("6s");
 		mobile1.setPrice(34999);
