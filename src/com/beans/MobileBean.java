@@ -16,6 +16,7 @@ public class MobileBean {
 	private int price;
 	private String imgPath;
 	private boolean availability;
+	
 	public int getProdId() {
 		return prodId;
 	}

@@ -27,3 +27,14 @@
     border: 2px solid;
     cursor: pointer;
 }
+.kartNo {
+	display: none;
+    background: burlywood;
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+    align-items: center;
+    padding: 4px;
+    font-size: 1.3em;
+    margin-left: 5px;
+}

@@ -8,7 +8,10 @@ body {
 	background: cadetblue;
     padding: 0;
     margin: 0;
-    display: flex;
+    position: fixed;
+    display: block;
+    width: 100%;
+    top: 0;
 }
 
 .logoImgDiv {

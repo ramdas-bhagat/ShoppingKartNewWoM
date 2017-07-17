@@ -7,12 +7,10 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.beans.KartBean;
 import com.beans.UserBean;
-import com.sun.javafx.collections.MappingChange.Map;
 
 
 @Controller
@@ -33,7 +31,6 @@ public class UserController {
 		user.setKart(kart);
 		kart.setUser(user);
 		
-		
 		Configuration conf = new Configuration().addAnnotatedClass(UserBean.class).addAnnotatedClass(KartBean.class).configure();
 		SessionFactory sf = conf.buildSessionFactory();
 		Session session = sf.openSession();
@@ -43,6 +40,5 @@ public class UserController {
 		tx.commit();
 		session.close();
 		return null;
-		
 	}
 }

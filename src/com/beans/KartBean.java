@@ -1,10 +1,6 @@
 package com.beans;
 
-import java.util.ArrayList;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -17,9 +13,8 @@ public class KartBean {
 	private String kartId;
 	@OneToOne(mappedBy="kart")
 	private UserBean user;
-	private ArrayList<MobileBean> products = new ArrayList<>();
 	
-	private int noOfProducts;
+	private int noOfProducts=0;
 	
 	public String getKartId() {
 		return kartId;
@@ -33,12 +28,7 @@ public class KartBean {
 	public void setUser(UserBean user) {
 		this.user = user;
 	}
-	public ArrayList<MobileBean> getProducts() {
-		return products;
-	}
-	public void setProducts(ArrayList<MobileBean> products) {
-		this.products = products;
-	}
+	
 	public int getNoOfProducts() {
 		return noOfProducts;
 	}
@@ -47,9 +37,7 @@ public class KartBean {
 	}
 	@Override
 	public String toString() {
-		return "KartBean [kartId=" + kartId + ", user=" + user + ", products=" + products + ", noOfProducts="
+		return "KartBean [kartId=" + kartId + ", user=" + user + ", noOfProducts="
 				+ noOfProducts + "]";
 	}
-	
-	
 }
