@@ -35,6 +35,7 @@ public class LoginController {
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
 		UserBean user = session.get(UserBean.class, params.get("uName"));
+		KartBean kart = session.get(KartBean.class, params.get("uName"));
 		tx.commit();
 		session.close();
 		Gson gson = new GsonBuilder().serializeNulls().create();
@@ -43,31 +44,52 @@ public class LoginController {
 			HashMap<String, String> resMap = new HashMap<>();
 			resMap.put("userId", user.getUserID());
 			resMap.put("userName", user.getUserName());
+			
 			httpSession.setAttribute("uName", user.getUserName());
 			httpSession.setAttribute("uId", user.getUserID());
-			resMap.put("kartItems",	Integer.toString(user.getKart().getNoOfProducts()));
-			Cookie cookie = new Cookie("shopLogin", "true");
-			System.out.println(user.toString());
+			httpSession.setAttribute("kartNo", kart.getNoOfProducts());
+			
+			resMap.put("kartItems",	Integer.toString(kart.getNoOfProducts()));
+			
 			res.getWriter().write(gson.toJson(resMap));
-			res.addCookie(cookie);
+			
 		}else {
 			res.getWriter().write(gson.toJson("failed"));
 		}
 	}
 	
 	@RequestMapping(value="/checkLogin.htm")
-	public void checkLogin(HttpServletRequest req, HttpServletResponse res, SessionStatus sessionStatus) throws IOException{
-		Cookie[] cookieList = req.getCookies();
-		String status = null;
-		for(Cookie c : cookieList){
-			if(c.getName() == "shopLogin"){
+	public void checkLogin(HttpServletRequest req, HttpServletResponse res) throws IOException{
+		/* Cookie[] cookieList = req.getCookies();
+		 * for(Cookie c : cookieList){
+			System.out.println("cookie name "+c.getName());
+			if(c.getName().equals("shopLogin")){
 				status = c.getValue();
 			}
-		}
-		if(status != null){
-			res.getWriter().write(new Gson().toJson("Logged In"));
+		}*/
+		/*System.out.println(req.getSession());
+		session.invalidate();
+		System.out.println(req.getSession());*/
+		HttpSession session = req.getSession(false);
+		//session.invalidate();
+		/*session = req.getSession(false);
+		System.out.println(session);
+		session.invalidate();
+		System.out.println(session);*/
+		String uname = (String) session.getAttribute("uName");
+		System.out.println("Uname "+ uname);
+		String s = "";
+		if(uname != null){
+			s = "Logged In";
 		}else{
-			res.getWriter().write(new Gson().toJson("Logged out"));
+			s = "Logged out";
 		}
+		res.getWriter().write(new Gson().toJson(s));
+	}
+	
+	@RequestMapping(value="/logout.htm", method = RequestMethod.GET)
+	public void logout(HttpServletRequest req, HttpServletResponse res, HttpSession session) throws IOException{
+		session.invalidate();
+		res.getWriter().write(new Gson().toJson("Logged out successfully"));
 	}
 }

@@ -1,11 +1,17 @@
 .loginMainDiv {
-    background: white;
-    margin: 30px 0px;
-    display: none;
+	display: none;
+	position: absolute;
+	right: 10px;
+	background: white;
+	padding: 5px;
+	margin-top: 15px;
 }
 
 .loginInputDiv {
-	margin: 0px 60px;
+	display: flex;
+	justify-content: space-between;
+	margin: 11px;
+
 }
 .loginLabel {
 	font-size: 1.2em;
@@ -27,6 +33,11 @@
     border: 2px solid;
     cursor: pointer;
 }
+.logoutBtn {
+	font-size: 25px;
+	color: white;
+	margin-left: 10px;
+}
 .kartNo {
 	display: none;
     background: burlywood;
@@ -36,5 +47,7 @@
     align-items: center;
     padding: 4px;
     font-size: 1.3em;
+    margin: 0px;
     margin-left: 5px;
+    text-align: center;
 }

@@ -8,7 +8,7 @@ body {
 	background: cadetblue;
     padding: 0;
     margin: 0;
-    position: fixed;
+    position: absolute;
     display: block;
     width: 100%;
     top: 0;
@@ -45,7 +45,7 @@ li a:HOVER {
 }
 
 .userMainDiv {
-	position: fixed;
+	position: absolute;
     top: 0px;
     /* width: 16%; */
     right: 0px;

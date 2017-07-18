@@ -27,25 +27,28 @@
 		<div class="userMainDiv">
 			<div class="kartDiv">
 				<a><i class="fa fa-shopping-cart" style="font-size: 40px"></i></a>
-				<label class="kartNo" id="kartValue">${kartItems}</label>
+				<p class="kartNo" id="kartValue"></p>
 			</div>
 			<div class="userInnerDiv" id="userDetails">
 					<img class="userImg" alt="" src="../images/unknown_user.png">
-					<label class="userName" id="userName" isLoggedIn="false"><%= session.getAttribute("uName") %></label>
+					<label class="userName" id="userName"></label>
+					<span class="logoutBtn"><i id="logoutBtn" class="fa fa-power-off"></i></span>
 			</div>
 		</div>
+		<div class="loginMainDiv" id="loginForm">
+			<div class="loginInputDiv">
+				<label class="loginLabel">User Name: </label><input class="loginInput" type="text" id="uName" name="uName" placeholder="Enter User Name">
+			</div>
+			<div class="loginInputDiv">
+				<label class="loginLabel">Password: </label><input class="loginInput"type="text" id="uPass" name="uPass" placeholder="Enter Password">
+			</div>
+			<input type="button" value="Login" id="uLogin" class="loginButton">
+		</div>
+		
 	</div>
-	<div class="loginMainDiv" id="loginForm" style="margin-top: 85px;">
-		<div class="loginInputDiv">
-			<label class="loginLabel">User Name: </label><input class="loginInput" type="text" id="uName" name="uName" placeholder="Enter User Name">
-		</div>
-		<div>
-			<label class="loginLabel">Password: </label><input class="loginInput"type="text" id="uPass" name="uPass" placeholder="Enter Password">
-		</div>
-		<input type="button" value="Login" id="uLogin" class="loginButton">
-	</div>	
+		
 	<div style="margin-top: 120px;">
-		<p>Product Id: ${productId}</p>
+		<p>Product Id: </p><p id="productId">${productId}</p>
 		<p>Product Brand: ${make}</p>
 		<p>Product Name: </p>${name}
 		<p>Product Image: </p><img alt="" src="../images/products/${image}">
@@ -53,8 +56,9 @@
 		<p>Availability: ${availability}</p>
 		<input type="button" value="Add To Cart" id="addToKart" class="loginButton">
 	</div>
-	<input type="text" name="pONumb" value="${sessionScope.uName}" />
-	<%= session.getAttribute("uId") %>
+	<%-- <input type="text" name="uID" id="uID" value="${sessionScope.uId}" />
+	<%= session.getAttribute("uId") %> --%>
+	
 	<%-- <%
 		String userName = null;
 		Cookie[] cookies = request.getCookies();
@@ -68,29 +72,148 @@
 	
 	<script type="text/javascript">
 	$(function(){
-		var name = '<%= session.getAttribute("uName") %>';
-		alert("session obj "+ name);
-		$("#userName").text(name); 
-	});
 		
-	$("#userDetails").click(function(){
-		var name = '<%= session.getAttribute("uName") %>';
-		if(name != null && name.length != 0){
-			alert("Status logged in");
-		}else{
-			alert("Status logged out");
-		}
-	});
-		$("#addToKart").on("click", function(){
-			var status = $("#userName").attr("isLoggedIn");
-			if(status == "true")
-				alert("User is logged in!!");
-			else {
+		function displayData(){
+			<%-- var name = '<%= session.getAttribute("uName") %>'; --%>
+			var name ="${sessionScope.uName}";
+			if(name != "null" & name.length != 0){
+				<%-- var kartNo = '<%= session.getAttribute("kartNo") %>'; --%>
+				$("#userName").text(name);
+				$.ajax({
+					url: "../kartController/kartStatus.htm",
+					type: "GET",
+					dataType: "json",
+					data: {
+						<%-- "uName" : '<%= session.getAttribute("uId") %>' --%>
+						"uName" : "${sessionScope.uId}"
+					},
+					success: function(data){
+						kartData = data;
+						$("#kartValue").text(kartData.noItems).css("display","block");
+						$("#loginForm").css("display","none");
+					}
+				});
 				
-				alert("user isn't logged in!!");
-				$("#loginForm").css("display","flex");
+			}else{
+				$("#userName").text("User Name"); 
+			}
+		}
+		<%-- <% 
+			if(session.getAttribute("uName") != null){
+				String uname="Hello World"; 
+				session.setAttribute("sessname",uname); 
+			}else{
+				String uname="Please Login"; 
+				session.setAttribute("sessname",uname); 
+			}
+		%> 
+		var name1 = '<%= session.getAttribute("sessname") %>';
+		alert("session obj "+ name1);
+		--%> 
+		
+		displayData();
+		
+	$("#logoutBtn").click(function(){
+		$.ajax({
+			url: "../logout.htm",
+			type: "GET",
+			dataType: "json",
+			success: function(data){
+				alert(data);
+				location.reload();
+			},
+			error: function(){
+				alert("Error");
 			}
 		});
+	})
+	$("#userDetails").click(function(){
+		<%-- var name = '<%= session.getAttribute("uName") %>'; --%>
+		/* $.ajax({
+			url: "../checkLogin.htm",
+			type: "GET",
+			dataTypr: "json",
+			success: function(data){
+				if(data != "\"Logged out\""){
+					alert("Status logged in");
+				}else{
+					alert("Status logged out");
+				}
+			}
+		}); */
+		checkloginStatus();
+		
+	});
+	
+	function checkloginStatus(){
+		<%-- var name = '<%= session.getAttribute("uName") %>'; --%>
+		var name ="${sessionScope.uName}";
+		if(name != "null" & name.length != 0){
+			alert("User is logged in!!");
+		}
+		else {
+			
+			//alert("user isn't logged in!!");
+			//$("#loginForm").css("display","block");
+			$("#loginForm").slideToggle();
+		}
+	}
+		$("#addToKart").on("click", function(){
+			/* checkloginStatus(); */
+			<%-- var name = '<%= session.getAttribute("uName") %>'; --%>
+			var name ="${sessionScope.uName}";
+			if(name != "null" & name.length != 0){
+				alert("User is logged in!!");
+				addToKart();
+			}
+			else {
+				
+				//alert("user isn't logged in!!");
+				//$("#loginForm").css("display","block");
+				$("#loginForm").slideToggle();
+				$("#uLogin").click(function(){
+					$.ajaxSetup({async: false});
+					$.ajax({
+						url: "../userLogin.htm",
+						type: "GET",
+						data: {
+							"uName" : $("#uName").val(),
+							"uPass" : $("#uPass").val()
+						},
+						dataType: "json",
+						success: function(data){
+							alert("Status " + data);
+							resData = data;
+							addToKart();
+						},
+						error: function(data){
+							alert("Error");
+						}
+					});
+					$.ajaxSetup({async: true});
+				});
+			}
+		});
+		function addToKart(){
+			$.ajax({
+				url: "../kartController/addToKart.htm",
+				type: "GET",
+				dataType: "json",
+				data: {
+					productId: $("#productId").text(),
+					<%-- userID: '<%= session.getAttribute("uId") %>' --%>
+					userID: "${sessionScope.uId}"
+				},
+				success: function(data){
+					alert(data);
+					location.reload();
+				},
+				error: function(){
+					alert("Error");
+				}
+			});
+		}
+		
 		$("#uLogin").click(function(){
 			$.ajax({
 				url: "../userLogin.htm",
@@ -103,26 +226,14 @@
 				success: function(data){
 					alert("Status " + data);
 					resData = data;
-					$("#loginForm").css("display","none");
-					$("#userName").attr("isLoggedIn", "true");
-					/* $("#userName").text(resData.userName); */
-					<%-- $("#userName").html('<%= session.getAttribute("uName") %>'); --%>
-					var kartNo = $("#kartValue").val();
-					alert("kart no "+ kartNo);
-					kartNo = kartNo + 1;
-					$("#kartValue").text(kartNo);
-					$("#kartValue").css("display","flex");
-					addToKart();
+					location.reload();
 				},
 				error: function(data){
 					alert("Error");
 				}
 			});
 		});
-		
-		function addToKart(){
-			
-		}
+	});
 	</script>
 </body>
 </html>

@@ -22,14 +22,12 @@ public class UserController {
 		System.out.println("In add user!!");
 		UserBean user =  new UserBean();
 		
-		user.setUserID("ram.bhagat222@gmail.com");
+		user.setUserID("ram222");
 		user.setUserName("Ramdas Bhagat");
 		user.setPassword("ram123");
 		
 		KartBean kart = new KartBean();
-		kart.setKartId("ram.bhagat222@gmail.com");
-		user.setKart(kart);
-		kart.setUser(user);
+		kart.setKartId("ram222");
 		
 		Configuration conf = new Configuration().addAnnotatedClass(UserBean.class).addAnnotatedClass(KartBean.class).configure();
 		SessionFactory sf = conf.buildSessionFactory();
