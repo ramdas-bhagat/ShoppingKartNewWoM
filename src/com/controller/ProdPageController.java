@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 public class ProdPageController {
 	
 	@RequestMapping(value = "/mobile/{model1}", method = RequestMethod.GET)
-	protected ModelAndView mobile(@PathVariable int model1, HttpServletResponse res){
+	protected ModelAndView mobile(@PathVariable("model1") int model1, HttpServletResponse res){
 		MobileBean mobile1;
 		Configuration conf = new Configuration().configure().addAnnotatedClass(MobileBean.class);
 		SessionFactory sf = conf.buildSessionFactory();

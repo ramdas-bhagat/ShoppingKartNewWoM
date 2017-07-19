@@ -20,7 +20,7 @@ import com.beans.UserBean;
 import com.google.gson.Gson;
 
 @Controller
-@RequestMapping(value="kartController", method= RequestMethod.GET)
+@RequestMapping(value="kartController")
 public class KartController {
 	
 	@RequestMapping(value="/addToKart.htm", method = RequestMethod.GET)
@@ -62,4 +62,11 @@ public class KartController {
 		resMap.put("product", kart.getProducts());
 		res.getWriter().write(new Gson().toJson(resMap));
 	}
+	
+	/*@ExceptionHandler(value = Exception.class)
+	public String exceptionHandler(Exception e){
+		System.out.println("Exception occured "+ e.getMessage());
+		return "error";
+	}*/
+	
 }
