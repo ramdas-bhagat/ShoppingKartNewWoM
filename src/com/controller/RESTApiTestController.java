@@ -18,7 +18,7 @@ import com.beans.StudentBean;
 public class RESTApiTestController {
 	
 	@RequestMapping(value = "/getKartItems.htm", method = RequestMethod.GET,produces={MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<StudentBean>  getItems(HttpServletResponse res) throws IOException{
+	public ArrayList<StudentBean> getItems(HttpServletResponse res) throws IOException{
 		System.out.println("hello world");
 		ArrayList<StudentBean> items = new ArrayList<>();
 		
@@ -29,6 +29,7 @@ public class RESTApiTestController {
 		
 		//res.getWriter().write(new Gson().toJson(items));
 		String[] itemsString = {s1.toString(), s1.toString()};
-		return new ResponseEntity<StudentBean>(s1, HttpStatus.OK);
+		//return new ResponseEntity<StudentBean>(s1, HttpStatus.OK);
+		return items;
 	}
 }

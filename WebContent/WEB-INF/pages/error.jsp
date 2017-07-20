@@ -9,7 +9,7 @@
 <body>
 	<h1>Hmmm..... Something went wrong why don't you go back and try again!!</h1>
 	<div>
-		<img alt="Error img" src="../images/error.gif">
+		<img alt="../images/error.gif" src="images/error.gif" >
 	</div>
 </body>
 </html>
