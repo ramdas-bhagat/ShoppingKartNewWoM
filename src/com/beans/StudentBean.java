@@ -2,20 +2,27 @@ package com.beans;
 
 import java.sql.Date;
 
+
+
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+/*@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties({"studDOB"})
-@JsonPropertyOrder({"studNo", "studName"})
+@JsonPropertyOrder({"studNo", "studName"})*/
+//@Entity
 public class StudentBean{
-	
-	@JsonProperty("Student_Name")
+	/*@Id
+	@JsonProperty("Student_Name")*/
 	private String studName;
 	
-	@JsonProperty("Student_ID")
+	/*@JsonProperty("Student_ID")*/
 	private int studNo;
 	
 	private Date studDOB;
