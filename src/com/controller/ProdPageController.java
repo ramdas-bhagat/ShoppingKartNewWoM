@@ -1,6 +1,9 @@
 package com.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,7 +22,7 @@ import com.google.gson.Gson;
 public class ProdPageController {
 	
 	@RequestMapping(value = "/mobile/{model1}", method = RequestMethod.GET)
-	protected ModelAndView mobile(@PathVariable("model1") int model1, HttpServletResponse res){
+	protected ModelAndView mobile(@PathVariable("model1") int model1, HttpServletResponse res, HttpSession httpSession){
 		MobileBean mobile1;
 		Configuration conf = new Configuration().configure().addAnnotatedClass(MobileBean.class);
 		SessionFactory sf = conf.buildSessionFactory();
@@ -34,7 +37,11 @@ public class ProdPageController {
 		mv.addObject("price", mobile1.getPrice());
 		mv.addObject("availability", mobile1.isAvailability());
 		mv.addObject("make", mobile1.getModelMake());
-		mv.addObject("productId", mobile1.getProdId());
+		//mv.addObject("productId", mobile1.getProdId());
+		ArrayList<Integer> list = new ArrayList<>();
+		list.add(1);
+		list.add(2);
+		httpSession.setAttribute("productId", new Gson().toJson(mobile1));
 		return mv;
 	}
 }

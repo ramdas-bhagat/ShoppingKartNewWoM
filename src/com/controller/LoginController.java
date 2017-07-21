@@ -12,11 +12,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.beans.KartBean;
@@ -27,8 +29,8 @@ import com.google.gson.GsonBuilder;
 @Controller
 public class LoginController {
 	
-	@RequestMapping(value="/userLogin.htm", method = RequestMethod.GET)
-	public void userLogin(@RequestParam HashMap<String, String> params, HttpServletResponse res, HttpSession httpSession) throws IOException{
+	@RequestMapping(value="/userLogin.htm", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public void userLogin(@RequestParam HashMap<String, String> params, HttpServletResponse res, HttpServletRequest req, HttpSession httpSession, Model model) throws IOException{
 		System.out.println("in Login controller!!");
 		Configuration conf = new Configuration().addAnnotatedClass(UserBean.class).addAnnotatedClass(KartBean.class).configure();
 		SessionFactory sf = conf.buildSessionFactory();
@@ -36,6 +38,9 @@ public class LoginController {
 		Transaction tx = session.beginTransaction();
 		UserBean user = session.get(UserBean.class, params.get("uName"));
 		KartBean kart = session.get(KartBean.class, params.get("uName"));
+		
+		System.out.println(req.getParameter("uName"));
+		
 		tx.commit();
 		session.close();
 		Gson gson = new GsonBuilder().serializeNulls().create();
@@ -48,9 +53,9 @@ public class LoginController {
 			httpSession.setAttribute("uName", user.getUserName());
 			httpSession.setAttribute("uId", user.getUserID());
 			httpSession.setAttribute("kartNo", kart.getNoOfProducts());
-			
 			resMap.put("kartItems",	Integer.toString(kart.getNoOfProducts()));
 			
+			model.addAllAttributes(resMap);
 			res.getWriter().write(gson.toJson(resMap));
 			
 		}else {

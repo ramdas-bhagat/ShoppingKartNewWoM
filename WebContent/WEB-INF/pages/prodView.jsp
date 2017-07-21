@@ -15,7 +15,8 @@
 </head>
 <body>
 	<div class="headingContainer">
-		<a href="/ShoppingKartNewWoM"><div class="logoImgDiv"><img class="logoImg" alt="" src="../images/logo.png"></div></a>
+		<a href="/ShoppingKartNewWoM">
+		<div class="logoImgDiv"><img class="logoImg" alt="" src="../images/logo.png"></div></a>
 		<div class="menuDiv">
 			<ul>
 				<li class="listItem"><a>Home</a></li>
@@ -56,9 +57,11 @@
 		<p>Availability: ${availability}</p>
 		<input type="button" value="Add To Cart" id="addToKart" class="loginButton">
 	</div>
-	<%-- <input type="text" name="uID" id="uID" value="${sessionScope.uId}" />
-	<%= session.getAttribute("uId") %> --%>
-	
+	<input type="text" name="uID" id="uID" value="${sessionScope.productId}" />
+	<h1>session</h1>
+	<script>
+	window.k = '<%= session.getAttribute("productId") %>';
+	</script>
 	<%-- <%
 		String userName = null;
 		Cookie[] cookies = request.getCookies();
@@ -69,7 +72,7 @@
 		}
 	%>
 	<h1><%=userName %></h1> --%>
-	
+	<h1>${kartItems} </h1>
 	<script type="text/javascript">
 	$(function(){
 		
