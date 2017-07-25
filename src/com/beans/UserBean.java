@@ -13,7 +13,16 @@ public class UserBean {
 	private String userID;
 	private String userName;
 	private String password;
-		
+	@OneToOne
+	private KartBean kart;
+	
+	
+	public KartBean getKart() {
+		return kart;
+	}
+	public void setKart(KartBean kart) {
+		this.kart = kart;
+	}
 	public String getUserID() {
 		return userID;
 	}

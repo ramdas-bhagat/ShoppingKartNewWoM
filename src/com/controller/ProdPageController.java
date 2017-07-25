@@ -37,11 +37,11 @@ public class ProdPageController {
 		mv.addObject("price", mobile1.getPrice());
 		mv.addObject("availability", mobile1.isAvailability());
 		mv.addObject("make", mobile1.getModelMake());
-		//mv.addObject("productId", mobile1.getProdId());
-		ArrayList<Integer> list = new ArrayList<>();
+		mv.addObject("productId", mobile1.getProdId());
+		/*ArrayList<Integer> list = new ArrayList<>();
 		list.add(1);
 		list.add(2);
-		httpSession.setAttribute("productId", new Gson().toJson(mobile1));
+		httpSession.setAttribute("productId", new Gson().toJson(mobile1));*/
 		return mv;
 	}
 }

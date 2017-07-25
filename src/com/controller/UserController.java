@@ -37,12 +37,13 @@ public class UserController {
 		 * user.setUserID("ram222"); user.setUserName("Ramdas Bhagat");
 		 * user.setPassword("ram123");
 		 */
+		System.out.println("Adding user "+ reqParams.get("uId"));
 		user.setUserID(reqParams.get("uId"));
 		user.setUserName(reqParams.get("uName"));
 		user.setPassword(reqParams.get("passwd"));
 		KartBean kart = new KartBean();
 		kart.setKartId(reqParams.get("uId"));
-
+		user.setKart(kart);
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
 		session.save(user);
