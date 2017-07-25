@@ -29,7 +29,7 @@ import com.google.gson.GsonBuilder;
 @Controller
 public class LoginController {
 	
-	@RequestMapping(value="/userLogin.htm", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/userLogin.htm", method = RequestMethod.GET)
 	public void userLogin(@RequestParam HashMap<String, String> params, HttpServletResponse res, HttpServletRequest req, HttpSession httpSession, Model model) throws IOException{
 		System.out.println("in Login controller!!");
 		Configuration conf = new Configuration().addAnnotatedClass(UserBean.class).addAnnotatedClass(KartBean.class).configure();

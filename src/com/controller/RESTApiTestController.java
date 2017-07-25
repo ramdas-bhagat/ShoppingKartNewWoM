@@ -18,7 +18,7 @@ import com.beans.StudentBean;
 @RestController
 public class RESTApiTestController {
 	
-	@RequestMapping(value = "/getKartItems.htm", method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getKartItems.htm", method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE)
 	public void getItems(HttpServletResponse res) throws IOException{
 		System.out.println("hello world");
 		ArrayList<StudentBean> items = new ArrayList<>();
