@@ -28,7 +28,7 @@ public class UserController {
 			.configure();
 	SessionFactory sf = conf.buildSessionFactory();
 
-	@RequestMapping(value = "/addUser.htm", method = RequestMethod.POST)
+	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public void addUser(@RequestParam HashMap<String, String> reqParams, HttpServletResponse res) throws IOException {
 		System.out.println("In add user!!");
 		UserBean user = new UserBean();
@@ -53,7 +53,7 @@ public class UserController {
 		res.getWriter().write(new Gson().toJson("Success"));
 	}
 	
-	@RequestMapping(value = "/getAllUsers.htm", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
 	public void getAllUser(HttpServletResponse res) throws IOException {
 		System.out.println("In add user!!");
 
@@ -66,7 +66,7 @@ public class UserController {
 		res.getWriter().write(new Gson().toJson(users));
 	}
 
-	@RequestMapping(value = "/updateUser.htm", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
 	public void updateUser(@RequestParam HashMap<String, String> reqParams, HttpServletResponse res)
 			throws IOException {
 		System.out.println(reqParams.get("uId"));
@@ -99,7 +99,7 @@ public class UserController {
 		res.getWriter().write(new Gson().toJson("Success"));
 	}
 
-	@RequestMapping(value = "/deleteUser.htm", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
 	public void deleteUser(@RequestParam HashMap<String, String> reqParams, HttpServletResponse res)
 			throws IOException {
 		System.out.println("In delete usesr Deleting User " + reqParams.get("uId"));

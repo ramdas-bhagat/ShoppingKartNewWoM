@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class TestController {
 	
-	@RequestMapping(value = "/welcome.htm", method = RequestMethod.GET)
+	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
 	protected ModelAndView welcomeController(){
 		System.out.println("In controller");
 		

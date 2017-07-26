@@ -2,21 +2,13 @@ package com.beans;
 
 import java.sql.Date;
 
-
-
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.stereotype.Component;
 
 /*@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties({"studDOB"})
 @JsonPropertyOrder({"studNo", "studName"})*/
 //@Entity
+@Component
 public class StudentBean{
 	/*@Id
 	@JsonProperty("Student_Name")*/

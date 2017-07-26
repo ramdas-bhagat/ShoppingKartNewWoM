@@ -16,7 +16,7 @@ import com.beans.MobileBean;
 @RequestMapping(value = "addProduct")
 public class ProductAddController {
 	
-	@RequestMapping(value = "/mobile.htm", method= RequestMethod.GET)
+	@RequestMapping(value = "/mobile", method= RequestMethod.GET)
 	protected ModelAndView addMobile() {
 		
 		MobileBean mobile1 = new MobileBean();

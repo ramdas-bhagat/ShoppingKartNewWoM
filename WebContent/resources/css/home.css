@@ -50,7 +50,6 @@ li a:HOVER {
     top: 0px;
     /* width: 16%; */
     right: 0px;
-    z-index: 10001;
     display: flex;
 }
 .kartDiv {

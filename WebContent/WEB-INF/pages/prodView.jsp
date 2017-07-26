@@ -4,19 +4,19 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Insert title here</title>
 	
-	<link href="../css/home.css" rel="stylesheet">
-	<link href="../css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-	<link href="../css/swiper.min.css" rel="stylesheet">
-	<link href="../css/prodView.css" rel="stylesheet">
+	<link href="../resources/css/home.css" rel="stylesheet">
+	<link href="../resources/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="../resources/css/swiper.min.css" rel="stylesheet">
+	<link href="../resources/css/prodView.css" rel="stylesheet">
 
-	<script src="../scripts/jquery-3.2.1.min.js"></script>
+	<script src="../resources/scripts/jquery-3.2.1.min.js"></script>
 	<!-- Swiper JS -->
-	<script src="../scripts/swiper.min.js"></script>
+	<script src="../resources/scripts/swiper.min.js"></script>
 </head>
 <body>
 	<div class="headingContainer">
 		<a href="/ShoppingKartNewWoM">
-		<div class="logoImgDiv"><img class="logoImg" alt="" src="../images/logo.png"></div></a>
+		<div class="logoImgDiv"><img class="logoImg" alt="" src="../resources/images/logo.png"></div></a>
 		<div class="menuDiv">
 			<ul>
 				<li class="listItem"><a>Home</a></li>
@@ -31,7 +31,7 @@
 				<p class="kartNo" id="kartValue"></p>
 			</div>
 			<div class="userInnerDiv" id="userDetails">
-					<img class="userImg" alt="" src="../images/unknown_user.png">
+					<img class="userImg" alt="" src="../resources/images/unknown_user.png">
 					<label class="userName" id="userName"></label>
 					<span class="logoutBtn"><i id="logoutBtn" class="fa fa-power-off"></i></span>
 			</div>
@@ -52,7 +52,7 @@
 		<p>Product Id: </p><p id="productId">${productId}</p>
 		<p>Product Brand: ${make}</p>
 		<p>Product Name: </p>${name}
-		<p>Product Image: </p><img alt="" src="../images/products/${image}">
+		<p>Product Image: </p><img alt="" src="../resources/images/products/${image}">
 		<p>Product Price: </p>${price }
 		<p>Availability: ${availability}</p>
 		<input type="button" value="Add To Cart" id="addToKart" class="loginButton">
@@ -83,17 +83,21 @@
 				<%-- var kartNo = '<%= session.getAttribute("kartNo") %>'; --%>
 				$("#userName").text(name);
 				$.ajax({
-					url: "../kartController/kartStatus.htm",
+					url: "../kartController/kartStatus",
 					type: "GET",
 					dataType: "json",
 					data: {
 						<%-- "uName" : '<%= session.getAttribute("uId") %>' --%>
-						"uName" : "${sessionScope.uId}"
+						"uId" : "${sessionScope.uId}"
 					},
 					success: function(data){
 						kartData = data;
 						$("#kartValue").text(kartData.noItems).css("display","block");
 						$("#loginForm").css("display","none");
+						keys = Object.keys(kartData.product);
+						for(var key in keys){
+							alert(kartData.product[keys[key]]);
+						}
 					}
 				});
 				
@@ -118,7 +122,7 @@
 		
 	$("#logoutBtn").click(function(){
 		$.ajax({
-			url: "../logout.htm",
+			url: "../logout",
 			type: "GET",
 			dataType: "json",
 			success: function(data){
@@ -177,7 +181,7 @@
 				$("#uLogin").click(function(){
 					$.ajaxSetup({async: false});
 					$.ajax({
-						url: "../userLogin.htm",
+						url: "../userLogin",
 						type: "GET",
 						data: {
 							"uName" : $("#uName").val(),
@@ -199,7 +203,7 @@
 		});
 		function addToKart(){
 			$.ajax({
-				url: "../kartController/addToKart.htm",
+				url: "../kartController/addToKart",
 				type: "GET",
 				dataType: "json",
 				data: {
@@ -219,7 +223,7 @@
 		
 		$("#uLogin").click(function(){
 			$.ajax({
-				url: "../userLogin.htm",
+				url: "../userLogin",
 				type: "GET",
 				data: {
 					"uName" : $("#uName").val(),

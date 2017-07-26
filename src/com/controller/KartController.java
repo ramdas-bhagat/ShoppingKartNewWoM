@@ -1,9 +1,9 @@
 package com.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beans.KartBean;
 import com.beans.UserBean;
@@ -23,8 +24,8 @@ import com.google.gson.Gson;
 @RequestMapping(value="kartController")
 public class KartController {
 	
-	@RequestMapping(value="/addToKart.htm", method = RequestMethod.GET)
-	public void addToKart(@RequestParam HashMap<String, String> params, HttpServletResponse res) throws IOException{
+	@RequestMapping(value="/addToKart", method = RequestMethod.GET)
+	public void addToKart(@RequestParam HashMap<String, String> params, HttpServletResponse res, HttpServletRequest req) throws IOException{
 		System.out.println("Product Id: "+ params.get("productId")+" User Name: "+params.get("userID"));
 		
 		Configuration conf = new Configuration().addAnnotatedClass(UserBean.class).addAnnotatedClass(KartBean.class).configure();
@@ -34,10 +35,16 @@ public class KartController {
 		
 		KartBean kart = session.get(KartBean.class, params.get("userID"));
 		
-		int noOfProducts = kart.getNoOfProducts() + 1;
-		kart.setNoOfProducts(noOfProducts);
-		ArrayList<Integer> prodList = kart.getProducts();
-		prodList.add(Integer.parseInt(params.get("productId")));
+		HashMap<Integer, Integer> prodList = kart.getProducts();
+		int prodId = Integer.parseInt(params.get("productId"));
+		if(prodList.containsKey(prodId))
+		{
+			prodList.put(prodId, (prodList.get(Integer.parseInt(params.get("productId"))) + 1));
+		}else{
+			prodList.put(Integer.parseInt(params.get("productId")), 1);
+			int noOfProducts = kart.getNoOfProducts() + 1;
+			kart.setNoOfProducts(noOfProducts);
+		}
 		kart.setProducts(prodList);
 		
 		session.save(kart);
@@ -46,21 +53,24 @@ public class KartController {
 		res.getWriter().write(new Gson().toJson("added to kart"));
 	}
 	
-	@RequestMapping(value="/kartStatus.htm", method= RequestMethod.GET)
-	public void kartStstus(HttpServletResponse res, @RequestParam("uName") String uName) throws IOException{
+	@ResponseBody
+	@RequestMapping(value="/kartStatus", method= RequestMethod.GET)
+	public HashMap<String, Object> kartStstus(HttpServletResponse res, @RequestParam("uId") String uId) throws IOException{
 		Configuration conf = new Configuration().addAnnotatedClass(KartBean.class).configure();
 		SessionFactory sf = conf.buildSessionFactory();
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
 		
-		KartBean kart = session.get(KartBean.class, uName);
+		KartBean kart = session.get(KartBean.class, uId);
 		tx.commit();
 		session.close();
 		
 		HashMap<String, Object> resMap = new HashMap<>();
-		resMap.put("noItems", kart.getNoOfProducts());
+		resMap.put("noItems", Integer.toString(kart.getNoOfProducts()));
 		resMap.put("product", kart.getProducts());
-		res.getWriter().write(new Gson().toJson(resMap));
+		//resMap.putAll(kart.getProducts());
+		//res.getWriter().write(new Gson().toJson(resMap));
+		return resMap;
 	}
 	
 	/*@ExceptionHandler(value = Exception.class)

@@ -29,7 +29,7 @@ import com.google.gson.GsonBuilder;
 @Controller
 public class LoginController {
 	
-	@RequestMapping(value="/userLogin.htm", method = RequestMethod.GET)
+	@RequestMapping(value="/userLogin", method = RequestMethod.GET)
 	public void userLogin(@RequestParam HashMap<String, String> params, HttpServletResponse res, HttpServletRequest req, HttpSession httpSession, Model model) throws IOException{
 		System.out.println("in Login controller!!");
 		Configuration conf = new Configuration().addAnnotatedClass(UserBean.class).addAnnotatedClass(KartBean.class).configure();
@@ -63,7 +63,7 @@ public class LoginController {
 		}
 	}
 	
-	@RequestMapping(value="/checkLogin.htm")
+	@RequestMapping(value="/checkLogin")
 	public void checkLogin(HttpServletRequest req, HttpServletResponse res) throws IOException{
 		/* Cookie[] cookieList = req.getCookies();
 		 * for(Cookie c : cookieList){
@@ -92,7 +92,7 @@ public class LoginController {
 		res.getWriter().write(new Gson().toJson(s));
 	}
 	
-	@RequestMapping(value="/logout.htm", method = RequestMethod.GET)
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public void logout(HttpServletRequest req, HttpServletResponse res, HttpSession session) throws IOException{
 		session.invalidate();
 		res.getWriter().write(new Gson().toJson("Logged out successfully"));

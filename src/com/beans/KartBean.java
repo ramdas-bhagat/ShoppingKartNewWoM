@@ -1,6 +1,7 @@
 package com.beans;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,12 +15,13 @@ public class KartBean {
 	private String kartId;
 		
 	private int noOfProducts=0;
-	private ArrayList<Integer> products = new ArrayList<>();
+	private HashMap<Integer, Integer> products = new HashMap<>();
 	
-	public ArrayList<Integer> getProducts() {
+	
+	public HashMap<Integer, Integer> getProducts() {
 		return products;
 	}
-	public void setProducts(ArrayList<Integer> products) {
+	public void setProducts(HashMap<Integer, Integer> products) {
 		this.products = products;
 	}
 	public String getKartId() {
