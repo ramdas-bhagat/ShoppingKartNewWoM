@@ -68,15 +68,33 @@
 
 		<div class="userMainDiv">
 			<div class="kartDiv">
-				<a><i class="fa fa-shopping-cart" style="font-size: 40px"></i></a>
+				<a><i class="fa fa-shopping-cart" style="font-size: 40px"></i>kart</a>
 				<p class="kartNo" id="kartValue"></p>
 			</div>
-			<div class="userInnerDiv" id="userDetails">
-				<img class="userImg" alt="" src="resources/images/unknown_user.png">
-				<label class="userName" id="userName"></label> <span
-					class="logoutBtn"><i id="logoutBtn" class="fa fa-power-off"></i></span>
+			<!-- <div class="userInnerDiv">
+				<div id="userDetails">
+					<img class="userImg" alt="" src="resources/images/unknown_user.png">
+					<label class="userName" id="userName"></label>
+				</div>
+				<div>
+					<span class="logoutBtn"><i id="logoutBtn"
+						class="fa fa-power-off"></i></span>
+				</div>
+			</div> -->
+			<div class="userInnerDiv">
+				<div id="userDetails">
+					<img class="userImg" alt="" src="resources/images/unknown_user.png">
+				</div>
+				<div>
+					<span class="userName" id="userName">User Name </span>
+				</div>
+				<div>
+					<span class="logoutBtn"><i id="logoutBtn"
+						class="fa fa-power-off"></i></span>
+				</div>
 			</div>
 		</div>
+
 	</div>
 
 	<div class="mainContainer" style="margin-top: 70px;">
@@ -182,19 +200,77 @@
 			<div class="swiper-button-prev swiper-button-prev1"></div>
 		</div>
 	</div>
-	<div class="loginMainDiv" id="loginForm">
-		<div class="loginInputDiv">
-			<label class="loginLabel">User Name: </label>
-			<input class="loginInput" type="text" id="uId" name="uId" placeholder="Enter User Name">
+	<!-- <div class="modal" id="loginModal">
+		<span class="modalClose" id="loginModalClose"><i
+			class="fa fa-times"></i></span>
+		<div class="modalContent">
+		<div class="loginMainDiv" id="loginForm">
+			<div class="modalImageDiv">
+				<img alt="LoginForm Image"
+					src="resources/images/loginformDemoImage.jpg" style="width: 100%;">
+			</div>
+			<div class="loginFormDiv">
+				<div class="loginInputDiv">
+					<label class="loginLabel">User Name: </label> <input
+						class="loginInput" type="text" id="uId" name="uId"
+						placeholder="Enter User Name">
+				</div>
+				<div class="loginInputDiv">
+					<label class="loginLabel">Password: </label><input
+						class="loginInput" type="text" id="uPass" name="uPass"
+						placeholder="Enter Password">
+				</div>
+				<input type="button" value="Login" id="uLogin" class="loginButton">
+				<p id="registerNewUser" class="registerBtn">Register</p>
+			</div>
 		</div>
-		<div class="loginInputDiv">
-			<label class="loginLabel">Password: </label><input class="loginInput"
-				type="text" id="uPass" name="uPass" placeholder="Enter Password">
 		</div>
-		<input type="button" value="Login" id="uLogin" class="loginButton">
-		<p id="registerNewUser" class="registerBtn">Register</p>
-	</div>
+	</div> -->
 
+	<div class="modal" id="loginModal" style="display: none;">
+		<div style="width: 45%; margin: auto;">
+			<div style="position: relative;">
+
+				<button id="loginModalClose"
+					style="position: absolute; right: 0; top: 0; background: transparent; border: none; color: white; font-size: 29px; padding: 0;">x</button>
+				<div style="display: flex; width: 90%; height: 500px; margin: auto;">
+					<div style="width: 100%; display: flex;">
+						<div style="background-image: url('resources/images/logo-sq.png'); width: 40%;  /*! height: 100%; */ display: inline-block; padding: 50px 40px; font-size: 37px; color: white;background-position: center 85%;background-repeat: no-repeat;background-color: #2874f0;">
+							<span>Login</span>
+							<p style="font-size: 16px;">Wel-Come to Shopping mart</p>
+						</div>
+						<div
+							style="width: 60%; display: inline-block; padding: 80px 50px; background: white;">
+							<div>
+								<form>
+									<div style="margin-bottom: 30px;">
+										<input placeholder="Enter username"
+											style="width: 100%; font-size: 16px; border: none; border-bottom: 1px solid #e0e0e0;"
+											type="text">
+									</div>
+									<div style="margin-bottom: 30px;">
+										<input placeholder="Enter username"
+											style="width: 100%; font-size: 16px; border: none; border-bottom: 1px solid #e0e0e0;"
+											type="text">
+									</div>
+									<div>
+										<button style="width: 100%; height: 40px; background: #fb641b; border: none; color: white; font-size: 20px; border-radius: 4px;box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);cursor: pointer;">
+											<span>Login</span>
+										</button>
+									</div>
+								</form>
+							</div>
+							<div style="margin-top: 16px;">
+								<button style="width: 100%; height: 40px; background: white; border: none; color: #2874f0; font-size: 20px; border-radius: 4px;box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);cursor: pointer;">
+									<span>Register</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- Initialize Swiper -->
 	<script>
     var swiper = new Swiper('.swiper1', {
@@ -238,11 +314,11 @@ $(function(){
 					success: function(data){
 						kartData = data;
 						$("#kartValue").text(kartData.noItems).css("display","block");
-						$("#loginForm").css("display","none");
-						keys = Object.keys(kartData.product);
+						$("#loginModal").css("display","none");
+						/* keys = Object.keys(kartData.product);
 						for(var key in keys){
 							alert(kartData.product[keys[key]]);
-						}
+						} */
 					}
 				});
 				
@@ -279,16 +355,20 @@ $(function(){
 			alert("User is logged in!!");
 		}
 		else {
-			$("#loginForm").slideToggle();
+			$("#loginModal").slideToggle();
 		}
 	};
+	
+	$("#loginModalClose").click(function(){
+		$("#loginModal").slideToggle();
+	});
 	
 	$("#uLogin").click(function(){
 		$.ajax({
 			url: "userLogin",
 			type: "GET",
 			data: {
-				"uName" : $("#uId").val(),
+				"uId" : $("#uId").val(),
 				"uPass" : $("#uPass").val()
 			},
 			dataType: "json",

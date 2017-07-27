@@ -26,14 +26,14 @@ public class KartController {
 	
 	@RequestMapping(value="/addToKart", method = RequestMethod.GET)
 	public void addToKart(@RequestParam HashMap<String, String> params, HttpServletResponse res, HttpServletRequest req) throws IOException{
-		System.out.println("Product Id: "+ params.get("productId")+" User Name: "+params.get("userID"));
+		System.out.println("Product Id: "+ params.get("productId")+" User Name: "+params.get("uId"));
 		
 		Configuration conf = new Configuration().addAnnotatedClass(UserBean.class).addAnnotatedClass(KartBean.class).configure();
 		SessionFactory sf = conf.buildSessionFactory();
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
 		
-		KartBean kart = session.get(KartBean.class, params.get("userID"));
+		KartBean kart = session.get(KartBean.class, params.get("uId"));
 		
 		HashMap<Integer, Integer> prodList = kart.getProducts();
 		int prodId = Integer.parseInt(params.get("productId"));

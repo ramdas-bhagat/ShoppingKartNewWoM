@@ -3,7 +3,6 @@ package com.controller;
 import java.io.IOException;
 import java.util.HashMap;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,14 +11,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.support.SessionStatus;
 
 import com.beans.KartBean;
 import com.beans.UserBean;
@@ -36,8 +32,8 @@ public class LoginController {
 		SessionFactory sf = conf.buildSessionFactory();
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
-		UserBean user = session.get(UserBean.class, params.get("uName"));
-		KartBean kart = session.get(KartBean.class, params.get("uName"));
+		UserBean user = session.get(UserBean.class, params.get("uId"));
+		KartBean kart = session.get(KartBean.class, params.get("uId"));
 		
 		System.out.println(req.getParameter("uName"));
 		

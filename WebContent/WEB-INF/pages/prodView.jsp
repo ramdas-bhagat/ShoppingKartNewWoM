@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Insert title here</title>
-	
-	<link href="../resources/css/home.css" rel="stylesheet">
-	<link href="../resources/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-	<link href="../resources/css/swiper.min.css" rel="stylesheet">
-	<link href="../resources/css/prodView.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
 
-	<script src="../resources/scripts/jquery-3.2.1.min.js"></script>
-	<!-- Swiper JS -->
-	<script src="../resources/scripts/swiper.min.js"></script>
+<link href="../resources/css/home.css" rel="stylesheet">
+<link href="../resources/css/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href="../resources/css/swiper.min.css" rel="stylesheet">
+<link href="../resources/css/prodView.css" rel="stylesheet">
+
+<script src="../resources/scripts/jquery-3.2.1.min.js"></script>
+<!-- Swiper JS -->
+<script src="../resources/scripts/swiper.min.js"></script>
 </head>
 <body>
 	<div class="headingContainer">
 		<a href="/ShoppingKartNewWoM">
-		<div class="logoImgDiv"><img class="logoImg" alt="" src="../resources/images/logo.png"></div></a>
+			<div class="logoImgDiv">
+				<img class="logoImg" alt="" src="../resources/images/logo.png">
+			</div>
+		</a>
 		<div class="menuDiv">
 			<ul>
 				<li class="listItem"><a>Home</a></li>
@@ -24,19 +28,31 @@
 				<li class="listItem"><a>Contact</a></li>
 			</ul>
 		</div>
-		
+
 		<div class="userMainDiv">
 			<div class="kartDiv">
 				<a><i class="fa fa-shopping-cart" style="font-size: 40px"></i></a>
 				<p class="kartNo" id="kartValue"></p>
 			</div>
-			<div class="userInnerDiv" id="userDetails">
+			<!-- <div class="userInnerDiv" id="userDetails">
 					<img class="userImg" alt="" src="../resources/images/unknown_user.png">
 					<label class="userName" id="userName"></label>
 					<span class="logoutBtn"><i id="logoutBtn" class="fa fa-power-off"></i></span>
+			</div> -->
+			<div class="userInnerDiv">
+				<div id="userDetails">
+					<img class="userImg" alt="" src="../resources/images/unknown_user.png">
+				</div>
+				<div>
+					<span class="userName" id="userName">User Name </span>
+				</div>
+				<div>
+					<span class="logoutBtn"><i id="logoutBtn"
+						class="fa fa-power-off"></i></span>
+				</div>
 			</div>
 		</div>
-		<div class="loginMainDiv" id="loginForm">
+		<!-- <div class="loginMainDiv" id="loginForm">
 			<div class="loginInputDiv">
 				<label class="loginLabel">User Name: </label><input class="loginInput" type="text" id="uName" name="uName" placeholder="Enter User Name">
 			</div>
@@ -44,24 +60,54 @@
 				<label class="loginLabel">Password: </label><input class="loginInput"type="text" id="uPass" name="uPass" placeholder="Enter Password">
 			</div>
 			<input type="button" value="Login" id="uLogin" class="loginButton">
-		</div>
-		
+		</div> -->
+
 	</div>
-		
+
 	<div style="margin-top: 120px;">
-		<p>Product Id: </p><p id="productId">${productId}</p>
+		<p>Product Id:</p>
+		<p id="productId">${productId}</p>
 		<p>Product Brand: ${make}</p>
-		<p>Product Name: </p>${name}
-		<p>Product Image: </p><img alt="" src="../resources/images/products/${image}">
-		<p>Product Price: </p>${price }
+		<p>Product Name:</p>${name}
+		<p>Product Image:</p>
+		<img alt="" src="../resources/images/products/${image}">
+		<p>Product Price:</p>${price }
 		<p>Availability: ${availability}</p>
-		<input type="button" value="Add To Cart" id="addToKart" class="loginButton">
+		<input type="button" value="Add To Cart" id="addToKart"
+			class="loginButton">
 	</div>
-	<input type="text" name="uID" id="uID" value="${sessionScope.productId}" />
+	<div class="modal" id="loginModal">
+		<span class="modalClose" id="loginModalClose"><i
+			class="fa fa-times"></i></span>
+		<!-- <div class="modalContent"> -->
+		<div class="loginMainDiv" id="loginForm">
+			<div class="modalImageDiv">
+				<img alt="LoginForm Image"
+					src="../resources/images/loginformDemoImage.jpg"
+					style="width: 100%;">
+			</div>
+			<div class="loginFormDiv">
+				<div class="loginInputDiv">
+					<label class="loginLabel">User Name: </label> <input
+						class="loginInput" type="text" id="uId" name="uId"
+						placeholder="Enter User Name">
+				</div>
+				<div class="loginInputDiv">
+					<label class="loginLabel">Password: </label><input
+						class="loginInput" type="text" id="uPass" name="uPass"
+						placeholder="Enter Password">
+				</div>
+				<input type="button" value="Login" id="uLogin" class="loginButton">
+				<p id="registerNewUser" class="registerBtn">Register</p>
+			</div>
+		</div>
+		<!-- </div> -->
+	</div>
+	<%-- <input type="text" name="uID" id="uID" value="${sessionScope.productId}" />
 	<h1>session</h1>
 	<script>
 	window.k = '<%= session.getAttribute("productId") %>';
-	</script>
+	</script> --%>
 	<%-- <%
 		String userName = null;
 		Cookie[] cookies = request.getCookies();
@@ -72,7 +118,7 @@
 		}
 	%>
 	<h1><%=userName %></h1> --%>
-	<h1>${kartItems} </h1>
+	<%-- <h1>${kartItems} </h1> --%>
 	<script type="text/javascript">
 	$(function(){
 		
@@ -93,11 +139,11 @@
 					success: function(data){
 						kartData = data;
 						$("#kartValue").text(kartData.noItems).css("display","block");
-						$("#loginForm").css("display","none");
-						keys = Object.keys(kartData.product);
+						$("#loginModal").css("display","none");
+						/* keys = Object.keys(kartData.product);
 						for(var key in keys){
 							alert(kartData.product[keys[key]]);
-						}
+						} */
 					}
 				});
 				
@@ -130,7 +176,7 @@
 				location.reload();
 			},
 			error: function(){
-				alert("Error");
+				alert("Error logout");
 			}
 		});
 	})
@@ -162,7 +208,7 @@
 			
 			//alert("user isn't logged in!!");
 			//$("#loginForm").css("display","block");
-			$("#loginForm").slideToggle();
+			$("#loginModal").slideToggle();
 		}
 	}
 		$("#addToKart").on("click", function(){
@@ -177,14 +223,14 @@
 				
 				//alert("user isn't logged in!!");
 				//$("#loginForm").css("display","block");
-				$("#loginForm").slideToggle();
+				$("#loginModal").slideToggle();
 				$("#uLogin").click(function(){
 					$.ajaxSetup({async: false});
 					$.ajax({
 						url: "../userLogin",
 						type: "GET",
 						data: {
-							"uName" : $("#uName").val(),
+							"uId" : $("#uId").val(),
 							"uPass" : $("#uPass").val()
 						},
 						dataType: "json",
@@ -194,7 +240,7 @@
 							addToKart();
 						},
 						error: function(data){
-							alert("Error");
+							alert("Error addtocart login");
 						}
 					});
 					$.ajaxSetup({async: true});
@@ -209,14 +255,14 @@
 				data: {
 					productId: $("#productId").text(),
 					<%-- userID: '<%= session.getAttribute("uId") %>' --%>
-					userID: "${sessionScope.uId}"
+					uId: "${sessionScope.uId}"
 				},
 				success: function(data){
 					alert(data);
 					location.reload();
 				},
 				error: function(){
-					alert("Error");
+					alert("Error addtokart function");
 				}
 			});
 		}
@@ -226,7 +272,7 @@
 				url: "../userLogin",
 				type: "GET",
 				data: {
-					"uName" : $("#uName").val(),
+					"uId" : $("#uId").val(),
 					"uPass" : $("#uPass").val()
 				},
 				dataType: "json",
@@ -236,9 +282,12 @@
 					location.reload();
 				},
 				error: function(data){
-					alert("Error");
+					alert("Error login");
 				}
 			});
+		});
+		$("#loginModalClose").click(function(){
+			$("#loginModal").slideToggle();
 		});
 	});
 	</script>
