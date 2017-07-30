@@ -9,7 +9,7 @@
 	rel="stylesheet">
 <link href="../resources/css/swiper.min.css" rel="stylesheet">
 <link href="../resources/css/prodView.css" rel="stylesheet">
-
+<link href="../resources/css/modal.css" rel="stylesheet">
 <script src="../resources/scripts/jquery-3.2.1.min.js"></script>
 <!-- Swiper JS -->
 <script src="../resources/scripts/swiper.min.js"></script>
@@ -41,7 +41,8 @@
 			</div> -->
 			<div class="userInnerDiv">
 				<div id="userDetails">
-					<img class="userImg" alt="" src="../resources/images/unknown_user.png">
+					<img class="userImg" alt=""
+						src="../resources/images/unknown_user.png">
 				</div>
 				<div>
 					<span class="userName" id="userName">User Name </span>
@@ -76,10 +77,10 @@
 		<input type="button" value="Add To Cart" id="addToKart"
 			class="loginButton">
 	</div>
-	<div class="modal" id="loginModal">
+	<!-- <div class="modal" id="loginModal">
 		<span class="modalClose" id="loginModalClose"><i
 			class="fa fa-times"></i></span>
-		<!-- <div class="modalContent"> -->
+		<div class="modalContent">
 		<div class="loginMainDiv" id="loginForm">
 			<div class="modalImageDiv">
 				<img alt="LoginForm Image"
@@ -101,8 +102,52 @@
 				<p id="registerNewUser" class="registerBtn">Register</p>
 			</div>
 		</div>
-		<!-- </div> -->
+		</div>
+	</div> -->
+	
+	<div class="modal" id="loginModal">
+		<div class="modalMainDiv">
+			<div style="position: relative;">
+				<button id="loginModalClose" class="modalClose">x</button>
+				<div style="display: flex; width: 90%; height: 500px; margin: auto;">
+					<div style="width: 100%; display: flex;">
+						<div
+							style="background-image: url('../resources/images/logo-sq.png'); width: 40%; display: inline-block; padding: 50px 40px; font-size: 37px; color: white; background-position: center 85%; background-repeat: no-repeat; background-color: #2874f0;">
+							<span id="modalLable">Login</span>
+							<p style="font-size: 16px;" id="modalTagLine">Wel-Come to Shopping mart</p>
+						</div>
+						<div class="formOuterDiv">
+							<div>
+								<form id="modalForm">
+									<div class="formInnerDiv">
+										<span class="inputFieldSpan">Username:</span>
+										<input id="uId" placeholder="Enter username" class="formInputField"
+											type="text">
+									</div>
+									<div class="formInnerDiv">
+										<span class="inputFieldSpan">Password:</span>
+										<input id="uPass" placeholder="Enter Password" class="formInputField"
+											type="text">
+									</div>
+									<div>
+										<button class="formLoginButton" id="formLoginButton">
+											<span>Login</span>
+										</button>
+									</div>
+								</form>
+							</div>
+							<div style="margin-top: 16px;">
+								<button class="formRegisterButton">
+									<span>Register</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+	
 	<%-- <input type="text" name="uID" id="uID" value="${sessionScope.productId}" />
 	<h1>session</h1>
 	<script>
@@ -267,13 +312,13 @@
 			});
 		}
 		
-		$("#uLogin").click(function(){
+		$("#formLoginButton").click(function(){
 			$.ajax({
 				url: "../userLogin",
 				type: "GET",
 				data: {
-					"uId" : $("#uId").val(),
-					"uPass" : $("#uPass").val()
+					uId : $("#uId").val(),
+					uPass : $("#uPass").val()
 				},
 				dataType: "json",
 				success: function(data){

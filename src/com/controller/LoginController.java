@@ -35,7 +35,7 @@ public class LoginController {
 		UserBean user = session.get(UserBean.class, params.get("uId"));
 		KartBean kart = session.get(KartBean.class, params.get("uId"));
 		
-		System.out.println(req.getParameter("uName"));
+		System.out.println(req.getParameter("uId"));
 		
 		tx.commit();
 		session.close();
@@ -52,10 +52,11 @@ public class LoginController {
 			resMap.put("kartItems",	Integer.toString(kart.getNoOfProducts()));
 			
 			model.addAllAttributes(resMap);
+			res.setStatus(200);
 			res.getWriter().write(gson.toJson(resMap));
-			
 		}else {
 			res.getWriter().write(gson.toJson("failed"));
+			res.setStatus(500);
 		}
 	}
 	

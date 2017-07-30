@@ -9,48 +9,12 @@
 <link href="resources/css/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet">
 <link href="resources/css/swiper.min.css" rel="stylesheet">
-<link href="resources/css/prodView.css" rel="stylesheet">
+<link href="resources/css/modal.css" rel="stylesheet">
 <!-- Swiper JS -->
 <script src="resources/scripts/swiper.min.js"></script>
 <script src="resources/scripts/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-
-	<!-- <div class="headingContainer">
-		<a href="/ShoppingKartNewWoM"><div class="logoImgDiv"><img class="logoImg" alt="" src="resources/images/logo.png"></div></a>
-		<div class="menuDiv">
-			<ul>
-				<li class="listItem"><a>Home</a></li>
-				<li class="listItem"><a>About</a></li>
-				<li class="listItem"><a>Contact</a></li>
-			</ul>
-		</div>
-		
-		<div class="userMainDiv">
-			<div class="kartDiv">
-				<a><i class="fa fa-shopping-cart" style="font-size: 40px"></i></a>
-				<p class="kartNo" id="kartValue"></p>
-			</div>
-			<div class="userInnerDiv" id="userDetails">
-					<img class="userImg" alt="" src="resources/images/unknown_user.png">
-					<label class="userName" id="userName"></label>
-					<i id="logoutBtn" class="fa fa-power-off" style="font-size: 40px"></i>
-			</div>
-		</div>
-		<div class="loginMainDiv" id="loginForm">
-			<div class="loginInputDiv">
-				<label class="loginLabel">User Name: </label><input class="loginInput" type="text" id="uName" name="uName" placeholder="Enter User Name">
-			</div>
-			<div class="loginInputDiv">
-				<label class="loginLabel">Password: </label><input class="loginInput"type="text" id="uPass" name="uPass" placeholder="Enter Password">
-			</div>
-			<input type="button" value="Login" id="uLogin" class="loginButton">
-		</div>
-		<div>
-			<input type="button" value="logout" id="logoutBtn"/>
-			
-		</div>
-	</div> -->
 
 	<div class="headingContainer">
 		<a href="/ShoppingKartNewWoM">
@@ -227,41 +191,39 @@
 		</div>
 	</div> -->
 
-	<div class="modal" id="loginModal" style="display: none;">
-		<div style="width: 45%; margin: auto;">
+	<div class="modal" id="loginModal">
+		<div class="modalMainDiv">
 			<div style="position: relative;">
-
-				<button id="loginModalClose"
-					style="position: absolute; right: 0; top: 0; background: transparent; border: none; color: white; font-size: 29px; padding: 0;">x</button>
+				<button id="loginModalClose" class="modalClose">x</button>
 				<div style="display: flex; width: 90%; height: 500px; margin: auto;">
 					<div style="width: 100%; display: flex;">
-						<div style="background-image: url('resources/images/logo-sq.png'); width: 40%;  /*! height: 100%; */ display: inline-block; padding: 50px 40px; font-size: 37px; color: white;background-position: center 85%;background-repeat: no-repeat;background-color: #2874f0;">
-							<span>Login</span>
-							<p style="font-size: 16px;">Wel-Come to Shopping mart</p>
-						</div>
 						<div
-							style="width: 60%; display: inline-block; padding: 80px 50px; background: white;">
+							style="background-image: url('resources/images/logo-sq.png'); width: 40%; display: inline-block; padding: 50px 40px; font-size: 37px; color: white; background-position: center 85%; background-repeat: no-repeat; background-color: #2874f0;">
+							<span id="modalLable">Login</span>
+							<p style="font-size: 16px;" id="modalTagLine">Wel-Come to Shopping mart</p>
+						</div>
+						<div class="formOuterDiv">
 							<div>
-								<form>
-									<div style="margin-bottom: 30px;">
-										<input placeholder="Enter username"
-											style="width: 100%; font-size: 16px; border: none; border-bottom: 1px solid #e0e0e0;"
+								<form id="modalForm">
+									<div class="formInnerDiv">
+										<span class="inputFieldSpan">Username:</span>
+										<input id="uId" placeholder="Enter username" class="formInputField"
 											type="text">
 									</div>
-									<div style="margin-bottom: 30px;">
-										<input placeholder="Enter username"
-											style="width: 100%; font-size: 16px; border: none; border-bottom: 1px solid #e0e0e0;"
+									<div class="formInnerDiv">
+										<span class="inputFieldSpan">Password:</span>
+										<input id="uPass" placeholder="Enter Password" class="formInputField"
 											type="text">
 									</div>
 									<div>
-										<button style="width: 100%; height: 40px; background: #fb641b; border: none; color: white; font-size: 20px; border-radius: 4px;box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);cursor: pointer;">
+										<button class="formLoginButton" id="formLoginButton">
 											<span>Login</span>
 										</button>
 									</div>
 								</form>
 							</div>
 							<div style="margin-top: 16px;">
-								<button style="width: 100%; height: 40px; background: white; border: none; color: #2874f0; font-size: 20px; border-radius: 4px;box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);cursor: pointer;">
+								<button class="formRegisterButton">
 									<span>Register</span>
 								</button>
 							</div>
@@ -363,7 +325,7 @@ $(function(){
 		$("#loginModal").slideToggle();
 	});
 	
-	$("#uLogin").click(function(){
+	$("#formLoginButton").click(function(){
 		$.ajax({
 			url: "userLogin",
 			type: "GET",
@@ -378,7 +340,7 @@ $(function(){
 				location.reload();
 			},
 			error: function(data){
-				alert("Error");
+				alert("Login Error");
 			}
 		});
 	});

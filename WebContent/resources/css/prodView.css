@@ -1,62 +1,6 @@
-.modal {
-	display: none;
-	position: fixed;
-	height: 100%;
-	width: 100%;
-	background: rgba(8, 8, 8, 0.55);
-	z-index: 1;
-	top: 0;
-	padding-top: 5%;
-}
-
-.modalClose {
-	cursor: pointer;
-	vertical-align: middle;
-	position: absolute;
-	margin-top: -11px;
-	margin-left: 69.5%;
-	color: red;
-	font-size: 1.4em;
-}
-
-.modalImageDiv {
-	width: 40%;
-	display: inline-block;
-}
-
-.loginFormDiv {
-	display: inline-block;
-position: absolute;
-font-size: 1.2em;
-
-}
-
-.loginMainDiv {
-	/* display: block;
-	position: absolute;
-	right: 10px;
-	background: white;
-	padding: 5px;
-	margin-top: 15px;
-	z-index: 10;
-	border: 2px solid rebeccapurple; */
-	width: 40%;
-	margin: auto;
-	background: white;
-	/* border: 10px solid rgba(0,0,0,0.2); */
-	border: 2px solid rebeccapurple;
-}
-
-.loginInputDiv {
-	justify-content: space-between;
-margin: 11px;
-text-align: end;
-
-}
-
-.loginLabel {
-	/* font-size: 1.2em;
-	margin-right: 10px; */
+/*.loginLabel {
+	font-size: 1.2em;
+	margin-right: 10px;
 }
 
 .loginInput {
@@ -64,7 +8,7 @@ text-align: end;
 	border-bottom: 1px solid blue;
 	padding: 5px;
 	width: 200px;
-}
+} 
 
 .loginButton {
 	margin: 0px 50px;
@@ -74,7 +18,7 @@ text-align: end;
 	color: white;
 	border: 2px solid;
 	cursor: pointer;
-}
+} */
 
 .logoutBtn {
 	font-size: 25px;
