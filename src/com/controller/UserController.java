@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +30,8 @@ public class UserController {
 	SessionFactory sf = conf.buildSessionFactory();
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public void addUser(@RequestParam HashMap<String, String> reqParams, HttpServletResponse res) throws IOException {
+	/*public void addUser(@RequestParam HashMap<String, String> reqParams, HttpServletResponse res) throws IOException {*/
+	public void addUser(@ModelAttribute HashMap<String, String> reqParams, HttpServletResponse res) throws IOException {
 		System.out.println("In add user!!");
 		UserBean user = new UserBean();
 

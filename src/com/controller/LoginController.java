@@ -2,6 +2,7 @@ package com.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,11 +12,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beans.KartBean;
 import com.beans.UserBean;
@@ -25,39 +29,51 @@ import com.google.gson.GsonBuilder;
 @Controller
 public class LoginController {
 	
+	@Autowired
+	SessionFactory sf;
+	
+	@ResponseBody
 	@RequestMapping(value="/userLogin", method = RequestMethod.GET)
-	public void userLogin(@RequestParam HashMap<String, String> params, HttpServletResponse res, HttpServletRequest req, HttpSession httpSession, Model model) throws IOException{
+	public UserBean userLogin(@RequestParam HashMap<String, String> params, HttpServletResponse res, HttpServletRequest req, HttpSession httpSession, Model model) throws IOException{
 		System.out.println("in Login controller!!");
-		Configuration conf = new Configuration().addAnnotatedClass(UserBean.class).addAnnotatedClass(KartBean.class).configure();
-		SessionFactory sf = conf.buildSessionFactory();
-		Session session = sf.openSession();
-		Transaction tx = session.beginTransaction();
-		UserBean user = session.get(UserBean.class, params.get("uId"));
-		KartBean kart = session.get(KartBean.class, params.get("uId"));
+		//Configuration conf = new Configuration().addAnnotatedClass(UserBean.class).addAnnotatedClass(KartBean.class).configure();
+		//SessionFactory sf = conf.buildSessionFactory();
+		//Session session = sf.openSession();
+		//Transaction tx = session.beginTransaction();
+		/*UserBean user = session.get(UserBean.class, params.get("uId"));
+		KartBean kart = session.get(KartBean.class, params.get("uId"));*/
+		UserBean user = sf.openSession().get(UserBean.class, params.get("uId"));
+		//KartBean kart = sf.openSession().get(KartBean.class, params.get("uId"));
 		
 		System.out.println(req.getParameter("uId"));
 		
-		tx.commit();
-		session.close();
-		Gson gson = new GsonBuilder().serializeNulls().create();
+		/*Query<UserBean> query = sf.openSession().createQuery("from UserBean");
+		List<UserBean> userList = query.list();
+		for(UserBean u : userList){
+			System.out.println("in for " + u.getUserID());
+		}*/
+		//tx.commit();
+		//session.close();
+		//Gson gson = new GsonBuilder().serializeNulls().create();
 		
-		if(user != null){
-			HashMap<String, String> resMap = new HashMap<>();
+		/*if(user != null){
+			HashMap<String, Object> resMap = new HashMap<>();
 			resMap.put("userId", user.getUserID());
 			resMap.put("userName", user.getUserName());
 			
 			httpSession.setAttribute("uName", user.getUserName());
 			httpSession.setAttribute("uId", user.getUserID());
-			httpSession.setAttribute("kartNo", kart.getNoOfProducts());
-			resMap.put("kartItems",	Integer.toString(kart.getNoOfProducts()));
+			httpSession.setAttribute("kartNo", user.getKart().getNoOfProducts());
+			resMap.put("kartItems",	user.getKart().getNoOfProducts());
 			
-			model.addAllAttributes(resMap);
+			//model.addAllAttributes(resMap);
 			res.setStatus(200);
-			res.getWriter().write(gson.toJson(resMap));
+			res.getWriter().write(new Gson().toJson(user));
 		}else {
-			res.getWriter().write(gson.toJson("failed"));
+			res.getWriter().write(new Gson().toJson("failed"));
 			res.setStatus(500);
-		}
+		}*/
+		return user;
 	}
 	
 	@RequestMapping(value="/checkLogin")

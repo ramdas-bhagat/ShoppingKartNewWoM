@@ -341,9 +341,11 @@ $(function(){
 			},
 			error: function(data){
 				alert("Login Error");
+				alert(data.status + ' ' + data.statusText);
 			}
 		});
 	});
+	
 });
     </script>
 </body>
