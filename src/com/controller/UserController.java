@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beans.KartBean;
 import com.beans.UserBean;
 import com.google.gson.Gson;
+import com.sun.corba.se.spi.servicecontext.UEInfoServiceContext;
 
 @Controller
 @RequestMapping(value = "userController")
@@ -30,8 +32,8 @@ public class UserController {
 	SessionFactory sf = conf.buildSessionFactory();
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	/*public void addUser(@RequestParam HashMap<String, String> reqParams, HttpServletResponse res) throws IOException {*/
-	public void addUser(@ModelAttribute HashMap<String, String> reqParams, HttpServletResponse res) throws IOException {
+	public void addUser(@RequestParam HashMap<String, String> reqParams, HttpServletResponse res) throws IOException {
+	/*public void addUser(@ModelAttribute HashMap<String, String> reqParams, HttpServletResponse res) throws IOException {*/
 		System.out.println("In add user!!");
 		UserBean user = new UserBean();
 
@@ -53,6 +55,18 @@ public class UserController {
 		tx.commit();
 		session.close();
 		res.getWriter().write(new Gson().toJson("Success"));
+	}
+	
+	@RequestMapping(value="getUserInfo", method=RequestMethod.GET)
+	@ResponseBody
+	public UserBean getUserInfo(@RequestParam HashMap<String, String> reqParam, HttpServletResponse res) throws IOException{
+		Session session = sf.openSession();
+		Transaction tx = session.beginTransaction();
+		UserBean user = (UserBean) session.get(UserBean.class, reqParam.get("uId"));
+		tx.commit();
+		session.close();
+		return user;
+		/*res.getWriter().write(new Gson().toJson(user));*/
 	}
 	
 	@RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)

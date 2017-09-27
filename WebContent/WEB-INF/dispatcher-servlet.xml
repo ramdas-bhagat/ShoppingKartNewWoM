@@ -25,6 +25,10 @@
 		</property>
 	</bean>
 	<!-- <bean id="StudentBean" class="com.beans.StudentBean"></bean> -->
+	<bean id="test" class="com.beans.TestBean">
+		<property name="id" value="100"></property>
+		<property name="name" value="Ramdas"></property>
+	</bean>
 	<!-- Configure bean to convert JSON to POJO and vice versa -->
 	<bean id="jsonMessageConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -52,9 +56,9 @@
 		<property name="packagesToScan" value="com.beans"></property>
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hbm2ddl.auto">update</prop>
 			</props>
 		</property>
 	</bean>

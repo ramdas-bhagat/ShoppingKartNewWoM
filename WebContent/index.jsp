@@ -262,6 +262,7 @@ $(function(){
 		function displayData(){
 			<%-- var name = '<%= session.getAttribute("uName") %>'; --%>
 			var name ="${sessionScope.uName}";
+			alert("Name = "+name);
 			if(name != "null" & name.length != 0){
 				<%-- var kartNo = '<%= session.getAttribute("kartNo") %>'; --%>
 				$("#userName").text(name);

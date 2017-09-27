@@ -4,24 +4,29 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.beans.TestBean;
+
 @Controller
 public class TestController {
-
+	
 	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
 	protected ModelAndView welcomeController() {
 		System.out.println("In controller");
@@ -63,5 +68,12 @@ public class TestController {
 		return new ModelAndView("uploadform", "filesuccess",
 				"File successfully saved!");
 	}
-
+	
+	@RequestMapping(value="/contextCheck", method=RequestMethod.GET)
+	public void webAppCOntextTest(HttpServletRequest req, HttpServletResponse res, ServletContextEvent context){
+		WebApplicationContext wc = WebApplicationContextUtils.getWebApplicationContext(context.getServletContext());
+		TestBean t1 = (TestBean) wc.getBean("test");
+		System.out.println(t1);
+	}
+	
 }
